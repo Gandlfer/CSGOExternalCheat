@@ -2,11 +2,13 @@
 import pymem
 import pymem.process
 import requests
-from ctypes import *
-from ctypes.wintypes import *
-import json
+# from ctypes import *
+# from ctypes.wintypes import *
+#import json
 import threading
 import keyboard
+# from kivy.app import App
+# from kivy.uix.button import Button
 
 offsets = 'https://raw.githubusercontent.com/kadeeq/ProjectX/main/offsets/offsets.json'
 response = requests.get( offsets ).json()
@@ -47,8 +49,8 @@ dwPlayerResource = int( response["signatures"]["dwPlayerResource"] )
 m_iCompetitiveRanking = int( response["netvars"]["m_iCompetitiveRanking"] )
 
 #read offset
-with open('pointer.json') as f:
-  data = json.load(f)
+# with open('pointer.json') as f:
+#   data = json.load(f)
 
 #print(data)
 
@@ -105,11 +107,21 @@ def enemyHealth():
                 print("{} \n {}".format(i,name))
                 #if enemyTeam:
                 
-                   
+# class TestApp(App):
+#     def build(self):
+#         btn=Button(text="Hello World")
+#         btn.bind(on_press=callback2)
+#         return btn
+
+# def callback2():
+#     antiflash=threading.Thread(target=thread_func)
+#     antiflash.start()
 
 if __name__=="__main__":
+    # TestApp().run()
     antiflash=threading.Thread(target=thread_func)
     antiflash.start()
+
     # hop=threading.Thread(target=bhop)
     # hop.start()
     # hop=threading.Thread(target=enemyHealth)
