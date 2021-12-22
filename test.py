@@ -7,10 +7,11 @@ import requests
 #import json
 import threading
 import keyboard
+import win32gui
 # from kivy.app import App
 # from kivy.uix.button import Button
 
-offsets = 'https://raw.githubusercontent.com/kadeeq/ProjectX/main/offsets/offsets.json'
+offsets = 'https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json'
 response = requests.get( offsets ).json()
 bhop_taste = "space"
 m_iAccountID=12232
@@ -21,7 +22,7 @@ m_iGlowIndex = int( response["netvars"]["m_iGlowIndex"] )
 m_iTeamNum = int( response["netvars"]["m_iTeamNum"] )
 dwForceJump =int( response["signatures"]["dwForceJump"] )
 dwLocalPlayer = int( response["signatures"]["dwLocalPlayer"] )
-dwRadarBase=85819236
+dwRadarBase=int( response["signatures"]["dwRadarBase"] )
 m_fFlags = int( response["netvars"]["m_fFlags"] )
 dwForceAttack = int( response["signatures"]["dwForceAttack"] )
 m_iCrosshairId = int( response["netvars"]["m_iCrosshairId"] )
@@ -58,7 +59,6 @@ m_iCompetitiveRanking = int( response["netvars"]["m_iCompetitiveRanking"] )
 nameprocess = "csgo.exe"
 
 pm=pymem.Pymem(nameprocess)
-print(hex(pm.base_address))
 
 client = pymem.process.module_from_name( pm.process_handle, "client.dll" ).lpBaseOfDll
 engine = pymem.process.module_from_name( pm.process_handle, "engine.dll" ).lpBaseOfDll
@@ -106,7 +106,43 @@ def enemyHealth():
                 name = pm.read_string(c_hud_radar + 0x300 + 0x174 * i )
                 print("{} \n {}".format(i,name))
                 #if enemyTeam:
-                
+
+def glow():
+    while True:
+        glow_manager = pm.read_int(client+dwGlowObjectManager)
+        for i in range(1,32):
+            entity=pm.read_int(client+dwEntityList+i*0x10)
+
+            if entity>0:
+                entity_team_id=pm.read_int(entity+m_iTeamNum)
+                entity_glow=pm.read_int(entity+m_iGlowIndex)
+            
+                if entity_team_id==2:
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x8, float(1))   # R
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0xC, float(0))   # G
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x10, float(0))  # B
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x14, float(1))  # Alpha
+                    pm.write_int(glow_manager + entity_glow * 0x38 + 0x28, 1)          # Enable glow
+
+                elif entity_team_id==3:
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x8, float(0))   # R
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0xC, float(0))   # G
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x10, float(1))  # B
+                    pm.write_float(glow_manager + entity_glow * 0x38 + 0x14, float(1))  # Alpha
+                    pm.write_int(glow_manager + entity_glow * 0x38 + 0x28, 1)           # Enable glow
+
+def RadarHack():
+    while True:
+        if pm.read_int(client + dwLocalPlayer):
+            localplayer = pm.read_int(client + dwLocalPlayer)
+            localplayer_team = pm.read_int(localplayer + m_iTeamNum)
+            for i in range(64):
+                if pm.read_int(client + dwEntityList + i * 0x10):
+                    entity = pm.read_int(client + dwEntityList + i * 0x10)
+                    entity_team = pm.read_int(entity + m_iTeamNum)
+                    if entity_team != localplayer_team:
+                        pm.write_int(entity + m_bSpotted, 1)
+
 # class TestApp(App):
 #     def build(self):
 #         btn=Button(text="Hello World")
@@ -121,7 +157,10 @@ if __name__=="__main__":
     # TestApp().run()
     antiflash=threading.Thread(target=thread_func)
     antiflash.start()
+    glowThread=threading.Thread(target=glow)
+    glowThread.start()
 
+    #threading.Thread(target=RadarHack).start()
     # hop=threading.Thread(target=bhop)
     # hop.start()
     # hop=threading.Thread(target=enemyHealth)
@@ -137,7 +176,7 @@ if __name__=="__main__":
 # if PROCESS_ID == None:
 #     print ("Process was not found")
 #     sys.exit(1)
-# else:
+# else:                                         
 #     print(PROCESS_ID)
 
 # read from addresses
