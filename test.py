@@ -2,14 +2,8 @@
 import pymem
 import pymem.process
 import requests
-# from ctypes import *
-# from ctypes.wintypes import *
-#import json
 import threading
 import keyboard
-import win32gui
-# from kivy.app import App
-# from kivy.uix.button import Button
 
 offsets = 'https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json'
 response = requests.get( offsets ).json()
@@ -49,12 +43,6 @@ dwClientState_PlayerInfo = int( response["signatures"]["dwClientState_PlayerInfo
 dwPlayerResource = int( response["signatures"]["dwPlayerResource"] )
 m_iCompetitiveRanking = int( response["netvars"]["m_iCompetitiveRanking"] )
 
-#read offset
-# with open('pointer.json') as f:
-#   data = json.load(f)
-
-#print(data)
-
 # input process name
 nameprocess = "csgo.exe"
 
@@ -62,17 +50,15 @@ pm=pymem.Pymem(nameprocess)
 
 client = pymem.process.module_from_name( pm.process_handle, "client.dll" ).lpBaseOfDll
 engine = pymem.process.module_from_name( pm.process_handle, "engine.dll" ).lpBaseOfDll
-#player = pm.read_int(client+dwLocalPlayer)
-#engine_pointer = pm.read_int( engine + data["signatures"]["dwClientState"] )
+
 def thread_func():
     print("Start")
     player = pm.read_int(client+dwLocalPlayer)
     while True:
-        #player = pm.read_int(client+dwLocalPlayer)
+
         if player:
             value=player+m_flFlashMaxAlpha
             if value:
-                #print(pm.read_int(player+m_flFlashMaxAlpha))
                 pm.write_float(player+m_flFlashMaxAlpha,float(0))
             else:
                 pass
@@ -143,20 +129,10 @@ def RadarHack():
                     if entity_team != localplayer_team:
                         pm.write_int(entity + m_bSpotted, 1)
 
-# class TestApp(App):
-#     def build(self):
-#         btn=Button(text="Hello World")
-#         btn.bind(on_press=callback2)
-#         return btn
-
-# def callback2():
-#     antiflash=threading.Thread(target=thread_func)
-#     antiflash.start()
-
 if __name__=="__main__":
-    # TestApp().run()
-    antiflash=threading.Thread(target=thread_func)
-    antiflash.start()
+
+    # antiflash=threading.Thread(target=thread_func)
+    # antiflash.start()
     glowThread=threading.Thread(target=glow)
     glowThread.start()
 
@@ -165,28 +141,3 @@ if __name__=="__main__":
     # hop.start()
     # hop=threading.Thread(target=enemyHealth)
     # hop.start()
-# PROCESS_ID = getpid()
-# print(PROCESS_ID)
-
-# process = windll.kernel32.OpenProcess(0x0, 0, PROCESS_ID)
-
-# print(process)
-# readProcMem = windll.kernel32.ReadProcessMemory
-# readProcMem(process,data["signatures"]["dwClientState"]+data["signatures"]["dwClientState"])
-# if PROCESS_ID == None:
-#     print ("Process was not found")
-#     sys.exit(1)
-# else:                                         
-#     print(PROCESS_ID)
-
-# read from addresses
-# STRLEN = 255
-
-# PROCESS_VM_READ = 0x0010
-# process = windll.kernel32.OpenProcess(PROCESS_VM_READ, 0, PROCESS_ID)
-# readProcMem = windll.kernel32.ReadProcessMemory
-# buf = ctypes.create_string_buffer(STRLEN)
-
-# for i in range(1,100): 
-#     if readProcMem(process, hex(i), buf, STRLEN, 0):
-#         print buf.raw
