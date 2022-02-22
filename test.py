@@ -68,7 +68,6 @@ def bhop():
         # if keyboard.is_pressed("end"):
         #     pass
         if keyboard.is_pressed("space"):
-            print("Pressed")
             jmp= client+dwForceJump
             player = pm.read_int(client+dwLocalPlayer)
             on_ground=pm.read_int(player+m_fFlags)
@@ -131,13 +130,13 @@ def RadarHack():
 
 if __name__=="__main__":
 
-    # antiflash=threading.Thread(target=thread_func)
-    # antiflash.start()
+    antiflash=threading.Thread(target=thread_func)
+    antiflash.start()
     glowThread=threading.Thread(target=glow)
     glowThread.start()
 
-    #threading.Thread(target=RadarHack).start()
-    # hop=threading.Thread(target=bhop)
-    # hop.start()
+    # threading.Thread(target=RadarHack).start()
+    hop=threading.Thread(target=bhop)
+    hop.start()
     # hop=threading.Thread(target=enemyHealth)
     # hop.start()
