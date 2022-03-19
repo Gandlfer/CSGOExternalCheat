@@ -17,7 +17,7 @@
 
 ### FAQ
 #### pip install did not work doesnt work
-- Go search for %appdata%/Local/Programs/Python/Python3._ ( _ depends on the python version number. Ex. 3.8 / 3.9 ) and right click copy this address as text, and the other address %appdata%/Local/Programs/Python/Python3._/Scripts
+- Go search for file path ```%appdata%/Local/Programs/Python/Python3._``` ( _ depends on the python version number. Ex. 3.8 / 3.9 ) and right click copy this address as text, and the other file path ```%appdata%/Local/Programs/Python/Python3._/Scripts```
 - Next, Search under your windows search for Edit System Environment Variables> Environment Variables
 - Double click on the word PATH under User Variables, for each address, create new and paste it in.
 - Do the same for Path under System Variables. Then Restart your computer.
