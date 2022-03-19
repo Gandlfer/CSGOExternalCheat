@@ -164,18 +164,25 @@ if __name__=="__main__":
     
     print("------------------ Rank Reveal -----------------")
     rankReveal()
+    print("------------------------------------------------")
 
     print("------------------ Anti Flash ------------------")
     antiflash=threading.Thread(target=thread_func)
     antiflash.start()
+    print("Toggle: ON")
+    print("------------------------------------------------")
 
     print("--------------------- Glow ---------------------")
     glowThread=threading.Thread(target=glow)
     glowThread.start()
+    print("Toggle: ON")
+    print("------------------------------------------------")
 
     print("----------------- Radar Hack -------------------")
     radar=threading.Thread(target=RadarHack)
     radar.start()
+    print("Toggle: ON")
+    print("------------------------------------------------")
     
     # threading.Thread(target=RadarHack).start()
     # hop=threading.Thread(target=bhop)
