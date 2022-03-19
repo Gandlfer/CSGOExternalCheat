@@ -16,8 +16,8 @@
 5. Click on ```CSGOExternalCheat.py``` and on the top toolbar, click Run > Run Without Debugging
 
 ### FAQ
-1. pip install did not work doesnt work
-    Go search for %appdata%/Local/Programs/Python/Python3.9 and right click copy this address as text, and the other address %appdata%/Local/Programs/Python/Python3.9/Scripts
-    Next, Search under your windows search for Edit System Environment Variables> Environment Variables
-    Double click on the word PATH under User Variables, for each address, create new and paste it in.
-    Do the same for Path under System Variables. Then Restart your computer.
+#### pip install did not work doesnt work
+- Go search for %appdata%/Local/Programs/Python/Python3._ ( _ depends on the python version number. Ex. 3.8 / 3.9 ) and right click copy this address as text, and the other address %appdata%/Local/Programs/Python/Python3._/Scripts
+- Next, Search under your windows search for Edit System Environment Variables> Environment Variables
+- Double click on the word PATH under User Variables, for each address, create new and paste it in.
+- Do the same for Path under System Variables. Then Restart your computer.
