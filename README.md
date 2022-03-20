@@ -8,8 +8,8 @@
 - [ ] Add UI for Toggle
 
 ### How to use
-1. Install Python 3 from https://www.python.org/downloads/ or the Windows Store. (When installing python, remember to tick "Add Python to PATH").
-2. Install [https://code.visualstudio.com/](VSCode).
+1. Install Python 3 from [Python 3](https://www.python.org/downloads/) or the Windows Store. (When installing python, remember to tick "Add Python to PATH").
+2. Install [VSCode](https://code.visualstudio.com/).
     - I am using Visual Studio Code as my IDE (You may select any IDE of your choice), remember to run it as Administrator.
 3. In IDE Terminal, run ```pip install -r requirement.txt``` to install required libraries.
 4. Join a game first.
