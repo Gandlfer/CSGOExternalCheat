@@ -6,6 +6,9 @@
 - [x] Rank Reveal
 - [x] Radar Hack
 - [x] Add UI for Toggle
+- [ ] AimBot
+- [ ] Trigger
+
 
 ### How to use
 1. Install Python 3 from [Python 3](https://www.python.org/downloads/) or the Windows Store. (When installing python, remember to tick "Add Python to PATH").
