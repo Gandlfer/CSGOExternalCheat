@@ -1,9 +1,13 @@
 
+from Feature import Feature
 import pymem
 import pymem.process
 import requests
 import threading
 import keyboard
+import sys
+
+from Menu import Menu
 
 offsets = 'https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json'
 response = requests.get( offsets ).json()
@@ -77,7 +81,6 @@ client = pymem.process.module_from_name( pm.process_handle, "client.dll" ).lpBas
 engine = pymem.process.module_from_name( pm.process_handle, "engine.dll" ).lpBaseOfDll
 
 def thread_func():
-    print("Start")
     player = pm.read_int(client+dwLocalPlayer)
     while True:
 
@@ -87,34 +90,6 @@ def thread_func():
                 pm.write_float(player+m_flFlashMaxAlpha,float(0))
             else:
                 pass
-
-def bhop():
-    while True:
-        # if keyboard.is_pressed("end"):
-        #     pass
-        if keyboard.is_pressed("space"):
-            jmp= client+dwForceJump
-            player = pm.read_int(client+dwLocalPlayer)
-            on_ground=pm.read_int(player+m_fFlags)
-            if player and jmp and on_ground==257:
-                pm.write_int(jmp,6)
-            else:
-                pass
-
-    
-def enemyHealth():
-    while True:
-        if keyboard.is_pressed("alt"):
-            radar = pm.read_int( client + dwRadarBase)
-            c_hud_radar = pm.read_int(radar + 0x74)
-            #name= pm.read_string(c_hud_radar + 0x300 + (0x174 * ( - 1))
-            #print(name)
-            # name= pm.read_string(c_hud_radar + 0x18 + (0x174 * 2))
-            # print(name)
-            for i in range(1,64):
-                name = pm.read_string(c_hud_radar + 0x300 + 0x174 * i )
-                print("{} \n {}".format(i,name))
-                #if enemyTeam:
 
 def glow():
     while True:
@@ -160,31 +135,19 @@ def rankReveal():
             print("Ranks:  {}, Wins: {}".format(Ranks[ranks],wins))
 
 if __name__=="__main__":
-    arr=[0,0,0]
+    arr=[
+        Feature("Anti-Flash",thread_func),
+        Feature("Glow",glow),
+        Feature("Radar Hack",RadarHack),
+    ]
     
     print("------------------ Rank Reveal -----------------")
     rankReveal()
     print("------------------------------------------------")
 
-    print("------------------ Anti Flash ------------------")
-    antiflash=threading.Thread(target=thread_func)
-    antiflash.start()
-    print("Toggle: ON")
-    print("------------------------------------------------")
+    UI=Menu(arr)
+    UI.displayMenu()
 
-    print("--------------------- Glow ---------------------")
-    glowThread=threading.Thread(target=glow)
-    glowThread.start()
-    print("Toggle: ON")
-    print("------------------------------------------------")
-
-    print("----------------- Radar Hack -------------------")
-    radar=threading.Thread(target=RadarHack)
-    radar.start()
-    print("Toggle: ON")
-    print("------------------------------------------------")
-    
-    # threading.Thread(target=RadarHack).start()
     # hop=threading.Thread(target=bhop)
     # hop.start()
     # hop=threading.Thread(target=enemyHealth)
