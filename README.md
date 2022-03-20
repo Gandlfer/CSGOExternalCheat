@@ -8,6 +8,7 @@
 - [x] Add UI for Toggle
 - [ ] AimBot
 - [ ] Trigger
+- [ ] ESP
 
 
 ### How to use
