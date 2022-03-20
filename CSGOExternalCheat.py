@@ -11,8 +11,7 @@ from Menu import Menu
 
 offsets = 'https://raw.githubusercontent.com/frk1/hazedumper/master/csgo.json'
 response = requests.get( offsets ).json()
-bhop_taste = "space"
-m_iAccountID=12232
+
 m_iCompetitiveWins = int(response["netvars"]["m_iCompetitiveWins"])
 dwEntityList = int( response["signatures"]["dwEntityList"] )
 dwGlowObjectManager = int( response["signatures"]["dwGlowObjectManager"] )
@@ -25,18 +24,7 @@ m_fFlags = int( response["netvars"]["m_fFlags"] )
 dwForceAttack = int( response["signatures"]["dwForceAttack"] )
 m_iCrosshairId = int( response["netvars"]["m_iCrosshairId"] )
 m_flFlashMaxAlpha = int( response["netvars"]["m_flFlashMaxAlpha"] )
-m_iDefaultFOV = (0x332C)
-dwClientState = response["signatures"]["dwClientState"]
 m_iHealth =(0x100)
-dwViewMatrix = int( response["signatures"]["dwViewMatrix"] )
-m_dwBoneMatrix = int( response["netvars"]["m_dwBoneMatrix"] )
-dwClientState_ViewAngles = int( response["signatures"]["dwClientState_ViewAngles"] )
-m_vecOrigin = int( response["netvars"]["m_vecOrigin"] )
-m_vecViewOffset = int( response["netvars"]["m_vecViewOffset"] )
-dwbSendPackets = int( response["signatures"]["dwbSendPackets"] )
-dwInput = int( response["signatures"]["dwInput"] )
-clientstate_net_channel = int( response["signatures"]["clientstate_net_channel"] )
-clientstate_last_outgoing_command = int( response["signatures"]["clientstate_last_outgoing_command"] )
 m_bSpotted = int( response["netvars"]["m_bSpotted"] )
 m_iShotsFired = int( response["netvars"]["m_iShotsFired"] )
 m_aimPunchAngle = int( response["netvars"]["m_aimPunchAngle"])
