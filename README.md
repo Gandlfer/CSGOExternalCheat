@@ -13,7 +13,8 @@
     - I am using Visual Studio Code as my IDE (You may select any IDE of your choice), remember to run it as Administrator.
 3. In IDE Terminal, run ```pip install -r requirement.txt``` to install required libraries.
 4. Join a game first.
-5. Click on ```CSGOExternalCheat.py``` and on the top toolbar, click Run > Run Without Debugging
+5. Click on ```CSGOExternalCheat.py``` and on the top toolbar, click Run > Run Without Debugging.
+6. By Default, all feature will be Toggled ON. To turn it off, enter their respective ```No.``` to toggle ON or OFF. Once it is done, type ```start```.
 
 ### FAQ
 #### pip install did not work doesnt work
