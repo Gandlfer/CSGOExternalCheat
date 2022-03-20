@@ -140,14 +140,14 @@ if __name__=="__main__":
         Feature("Glow",glow),
         Feature("Radar Hack",RadarHack),
     ]
-    
-    print("------------------ Rank Reveal -----------------")
-    rankReveal()
-    print("------------------------------------------------")
 
     UI=Menu(arr)
     UI.displayMenu()
 
+    print("------------------ Rank Reveal -----------------")
+    rankReveal()
+    print("------------------------------------------------")
+    
     # hop=threading.Thread(target=bhop)
     # hop.start()
     # hop=threading.Thread(target=enemyHealth)
