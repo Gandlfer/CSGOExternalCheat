@@ -119,10 +119,10 @@ def rankReveal():
         ranks=pm.read_int(playerResource+m_iCompetitiveRanking+ (i * 0x04))
         wins=pm.read_int(playerResource+m_iCompetitiveWins+ (i * 0x04))
         if name:
-            print(name)
-            print("Ranks:  {}, Wins: {}".format(Ranks[ranks],wins))
+            print("Player: {: <10} Ranks: {}, Wins: {}".format(name,Ranks[ranks],wins))
 
 if __name__=="__main__":
+    #rankReveal()
     arr=[
         Feature("Anti-Flash",thread_func),
         Feature("Glow",glow),
