@@ -111,15 +111,28 @@ def RadarHack():
                 pm.write_uchar(entity+m_bSpotted,1)
 
 def rankReveal():
+    lobby=dict()
+    lobby[2]=list()
+    lobby[3]=list()
+    lobby[0]=list()
     playerResource=pm.read_int(client+dwPlayerResource)
     radarBase=pm.read_int(client+dwRadarBase)
     radarPTR=pm.read_int(radarBase+0x78)
     for i in range(2,32):
-        name=pm.read_string(radarPTR + 0x300+ (0x174 * (i-1)),32)
-        ranks=pm.read_int(playerResource+m_iCompetitiveRanking+ (i * 0x04))
-        wins=pm.read_int(playerResource+m_iCompetitiveWins+ (i * 0x04))
-        if name:
-            print("Player: {: <10} Ranks: {}, Wins: {}".format(name,Ranks[ranks],wins))
+        entity=pm.read_int(client + dwEntityList + (i-1) * 0x10)
+        if entity>0:
+            name=pm.read_string(radarPTR + 0x300+ (0x174 * (i-1)),32)
+            ranks=pm.read_int(playerResource+m_iCompetitiveRanking+ (i * 0x04))
+            wins=pm.read_int(playerResource+m_iCompetitiveWins+ (i * 0x04))
+            lobby[pm.read_int(entity+m_iTeamNum)].append("Player: {: <20} Ranks: {}, Wins: {}".format(name,Ranks[ranks],wins))
+
+    print("Terrorist {: >10}".format(len(lobby[2])))        
+    for x in lobby[2]:
+        print(x)
+    print("-"*50)
+    print("Counter Terrorist {: >10}".format(len(lobby[3])))
+    for x in lobby[3]:
+        print(x)
 
 if __name__=="__main__":
     #rankReveal()
