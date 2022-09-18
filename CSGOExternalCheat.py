@@ -121,10 +121,10 @@ def rankReveal():
     for i in range(2,32):
         entity=pm.read_int(client + dwEntityList + (i-1) * 0x10)
         if entity>0:
-            name=pm.read_string(radarPTR + 0x300+ (0x174 * (i-1)),32)
+            name=pm.read_string(radarPTR + 0x300+ (0x174 * (i-1)),33)
             ranks=pm.read_int(playerResource+m_iCompetitiveRanking+ (i * 0x04))
             wins=pm.read_int(playerResource+m_iCompetitiveWins+ (i * 0x04))
-            lobby[pm.read_int(entity+m_iTeamNum)].append("Player: {: <20} Ranks: {}, Wins: {}".format(name,Ranks[ranks],wins))
+            lobby[pm.read_int(entity+m_iTeamNum)].append("Player: {:<40} Ranks: {}, Wins: {}".format(name,Ranks[ranks],wins))
 
     print("Terrorist {: >10}".format(len(lobby[2])))        
     for x in lobby[2]:
